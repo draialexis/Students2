@@ -1,4 +1,5 @@
 package utils;
 
-public class HairColor {
-}
+import java.io.Serializable;
+
+public record HairColor(double r, double g, double b) implements Serializable {}

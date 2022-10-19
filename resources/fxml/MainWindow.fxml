@@ -26,7 +26,13 @@
             </HBox>
             <HBox>
                 <Label text="first name: "/>
-                <TextField fx:id="firstnameTF"/>
+                <TextField fx:id="firstnameTF"
+                           disable="${promLV.selectionModel.selectedIndex == minus1}"/>
+            </HBox>
+            <HBox>
+                <Label text="hair color: "/>
+                <ColorPicker fx:id="hairColorPicker"
+                             disable="${promLV.selectionModel.selectedIndex == minus1}"/>
             </HBox>
         </VBox>
     </right>

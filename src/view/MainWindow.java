@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import viewmodel.PromotionVM;
@@ -18,21 +19,29 @@ public class MainWindow {
     private Label lastnameTF;
     @FXML
     private TextField firstnameTF;
+    @FXML
+    private ColorPicker hairColorPicker;
 
     @FXML
     private void clickAddStudent() {
-        prepareCreationWindow();
+        displayAddWindow();
     }
 
-    private void prepareCreationWindow() {
+    private void displayAddWindow() {
         Stage stage = new Stage();
         stage.initOwner(promLV.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
 
         StudentCreationWindow controller = initCreationWindow(stage);
 
-        if (controller.getLastname() != null && controller.getFirstname() != null) {
-            VM.addStudentVM(new StudentVM(controller.getLastname(), controller.getFirstname()));
+        if
+        (controller.getLastname() != null &&
+         controller.getFirstname() != null &&
+         controller.getHairColor() != null)
+        {
+            VM.addStudentVM(new StudentVM(controller.getLastname(),
+                                          controller.getFirstname(),
+                                          controller.getHairColor()));
         }
     }
 
@@ -45,7 +54,6 @@ public class MainWindow {
             stage.setScene(new Scene(loader.load()));
             stage.showAndWait();
         } catch (IOException ex) {
-            ex.printStackTrace();
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();
         }
         return controller;
@@ -56,6 +64,7 @@ public class MainWindow {
         VM.removeStudentVM(promLV.getSelectionModel().getSelectedItem());
         lastnameTF.setText("");
         firstnameTF.setText("");
+        hairColorPicker.setValue(Color.WHITE);
     }
 
     @FXML
@@ -73,7 +82,7 @@ public class MainWindow {
     private void initialize() {
         promLV.itemsProperty().bind(VM.studentsVMProperty());
         initPromLV();
-        promLV.setCellFactory(__ -> new StudentVMCell());
+        promLV.setCellFactory(__ -> new StudentCell());
     }
 
     private void initPromLV() {
@@ -81,10 +90,12 @@ public class MainWindow {
             if (oldV != null) {
                 lastnameTF.textProperty().unbind();
                 firstnameTF.textProperty().unbindBidirectional(oldV.firstnameProperty());
+                hairColorPicker.valueProperty().unbindBidirectional(oldV.hairColorProperty());
             }
             if (newV != null) {
                 lastnameTF.textProperty().bind(newV.lastnameProperty());
                 firstnameTF.textProperty().bindBidirectional(newV.firstnameProperty());
+                hairColorPicker.valueProperty().bindBidirectional(newV.hairColorProperty());
             }
         });
     }

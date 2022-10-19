@@ -1,6 +1,5 @@
 package data;
 
-import model.Promotion;
 import viewmodel.PromotionVM;
 
 import java.io.FileInputStream;
