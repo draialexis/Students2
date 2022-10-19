@@ -47,8 +47,6 @@ public class PromotionVM implements PropertyChangeListener {
         model.addStudent(toAdd.getModel());
     }
 
-    public void addStudentVM() {addStudentVM(new StudentVM());}
-
     public void removeStudentVM(StudentVM toRemove) {
         model.removeStudent(toRemove.getModel());
     }

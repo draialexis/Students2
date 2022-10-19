@@ -17,7 +17,7 @@ public class StudentVM implements PropertyChangeListener {
     private final StringProperty lastname = new SimpleStringProperty();
     public String getLastname() {return lastname.get();}
     public StringProperty lastnameProperty() {return lastname;}
-    public void setLastname(String lastname) {this.lastname.set(lastname);}
+    private void setLastname(String lastname) {this.lastname.set(lastname);}
 
     private final StringProperty firstname = new SimpleStringProperty();
     public String getFirstname() {return firstname.get();}
@@ -44,7 +44,6 @@ public class StudentVM implements PropertyChangeListener {
 
         // promise to update
         firstnameProperty().addListener((__, ___, newV) -> model.setFirstname(newV));
-        lastnameProperty().addListener((__, ___, newV) -> model.setLastname(newV));
     }
 
     public StudentVM(String lastname, String firstname) {
@@ -61,16 +60,8 @@ public class StudentVM implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Student.PROP_STUDENT_LASTNAME)) {
-            setLastname(isNotEmptyOrToDashes((String) evt.getNewValue()));
-        }
         if (evt.getPropertyName().equals(Student.PROP_STUDENT_FIRSTNAME)) {
-            setFirstname(isNotEmptyOrToDashes((String) evt.getNewValue()));
+            setFirstname((String) evt.getNewValue());
         }
     }
-
-    private String isNotEmptyOrToDashes(String stringEvt) {
-        return stringEvt.isEmpty() ? "---" : stringEvt;
-    }
-
 }

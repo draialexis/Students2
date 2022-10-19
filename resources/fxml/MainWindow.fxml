@@ -22,7 +22,7 @@
         <VBox>
             <HBox>
                 <Label text="last name: "/>
-                <TextField fx:id="lastnameTF"/>
+                <Label fx:id="lastnameTF"/>
             </HBox>
             <HBox>
                 <Label text="first name: "/>

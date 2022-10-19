@@ -1,9 +1,6 @@
 package launcher;
 
-import data.Loadable;
-import data.Loader;
-import data.Saver;
-import data.Stub;
+import data.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,10 +39,12 @@ public class Launcher extends Application {
 
     @Override
     public void stop() throws Exception {
+        Savable saver;
         try {
-            new Saver().save(VM);
+            saver = new Saver();
+            saver.save(VM);
         } catch (IOException __) {
-            System.err.println("couls not save...");
+            System.err.println("could not save...");
         }
 
         super.stop();
