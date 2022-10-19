@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-
+    <center>
+        <ListView fx:id="promLV"/>
+    </center>
+    <bottom>
+        <HBox>
+            <Button text="add student" onAction="#clickAddStudent"/>
+            <Button text="remove student" onAction="#clickRemoveStudent"/>
+            <Button text="QUIT" onAction="#clickQuit"/>
+        </HBox>
+    </bottom>
+    <right>
+        <VBox>
+            <HBox>
+                <Label text="last name: "/>
+                <TextField fx:id="lastnameTF"/>
+            </HBox>
+            <HBox>
+                <Label text="first name: "/>
+                <TextField fx:id="firstnameTF"/>
+            </HBox>
+        </VBox>
+    </right>
 </BorderPane>

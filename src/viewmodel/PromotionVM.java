@@ -17,4 +17,12 @@ public class PromotionVM {
     public Promotion getModel() {
         return model;
     }
+
+    public void addStudent(StudentVM toAdd) {
+    }
+
+    public void addStudent() { addStudent(new StudentVM()); }
+
+    public void removeStudent(StudentVM toRemove) {
+    }
 }
