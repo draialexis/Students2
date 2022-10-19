@@ -1,6 +1,7 @@
 package data;
 
 import viewmodel.PromotionVM;
+import viewmodel.StudentVM;
 
 public class Stub implements Loadable {
 
@@ -8,7 +9,10 @@ public class Stub implements Loadable {
     public PromotionVM load(){
         PromotionVM VM = new PromotionVM();
 
-        //... add studentVMs
+        VM.addStudentVM(new StudentVM("ONE", "Alan"));
+        VM.addStudentVM(new StudentVM("TWO", "Allan"));
+        VM.addStudentVM(new StudentVM("THREE", "Alllan"));
+        VM.addStudentVM(new StudentVM("FOUR", "Allllan"));
 
         return VM;
     }

@@ -16,12 +16,12 @@ public class MainWindow {
 
     @FXML
     private void clickAddStudent() {
-        VM.addStudent();
+        VM.addStudentVM();
     }
 
     @FXML
     private void clickRemoveStudent() {
-        VM.removeStudent(promLV.getSelectionModel().getSelectedItem());
+        VM.removeStudentVM(promLV.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -37,6 +37,21 @@ public class MainWindow {
 
     @FXML
     private void initialize() {
+        promLV.itemsProperty().bind(VM.studentsVMProperty());
+        initPromLV();
+        promLV.setCellFactory(__ -> new StudentVMCell());
+    }
 
+    private void initPromLV() {
+        promLV.getSelectionModel().selectedItemProperty().addListener((__, oldV, newV) -> {
+            if (oldV != null) {
+                lastnameTF.textProperty().unbindBidirectional(oldV.lastnameProperty());
+                firstnameTF.textProperty().unbindBidirectional(oldV.firstnameProperty());
+            }
+            if (newV != null) {
+                lastnameTF.textProperty().bindBidirectional(newV.lastnameProperty());
+                firstnameTF.textProperty().bindBidirectional(newV.firstnameProperty());
+            }
+        });
     }
 }
