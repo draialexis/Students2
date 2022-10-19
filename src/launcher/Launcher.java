@@ -1,22 +1,39 @@
 package launcher;
 
+import data.Loadable;
+import data.Loader;
+import data.Saver;
+import data.Stub;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.MainWindow;
+import viewmodel.PromotionVM;
+
+import java.io.IOException;
 
 public class Launcher extends Application {
 
-    //vm
+    private PromotionVM VM = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //load
+        Loadable loader;
+
+        try {
+            loader = new Loader();
+            VM = loader.load();
+        } catch (IOException | ClassNotFoundException __) {
+            System.err.println("could not load...");
+            loader = new Stub();
+            VM = loader.load();
+        }
+        if (VM == null) VM = new PromotionVM();
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
-        fxmlLoader.setController(new MainWindow(/*VM goes here*/));
+        fxmlLoader.setController(new MainWindow(VM));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -25,7 +42,12 @@ public class Launcher extends Application {
 
     @Override
     public void stop() throws Exception {
-        //save
+        try {
+            new Saver().save(VM);
+        } catch (IOException __) {
+            System.err.println("couls not save...");
+        }
+
         super.stop();
     }
 }
